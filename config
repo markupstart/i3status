@@ -1,0 +1,78 @@
+# i3status configuration file.
+# b
+# see "man i3status" for documentation.
+
+# It is important that this file is edited as UTF-8.
+# The following line should contain a sharp s:
+# ß
+# If the above line is not correctly displayed, fix your editor first!
+
+general {
+       output_format = "i3bar"
+		colors = true
+		color_good = "#ffff66"	#"#00e6ac" #"#33cc3"    #"#F08D0C"
+	        color_degraded  = '#ccdc90'
+	        color_bad       = '#e89393'
+		interval = 5
+		markup="pango"
+}
+
+#pink   		  #ff80bf		#fa4c7e
+#yellow  		  #ffff66		#fdd243
+#green   		  #aaff80		#78da59
+#Dark blue 		  #1a8cff		#166cd6
+#light blue 	  #99ccff		#33bdf5
+#Grey Shadow      #b3b3b3		#8d8e90
+#Orange 		  #ffa64d 		#fba137
+
+
+
+order += "disk /"
+order += "memory"
+order += "load"
+order += "ethernet enp10s0"
+order += "volume master"
+order += "tztime local"
+
+
+volume master {
+        #format = "<span color='#CEA8FF'>  : %volume </span>"
+        format = "<span color='#6fdc6f'>  : %volume </span>"
+        format_muted = "<span color='#cfafc8'>[  ]: muted (%volume) </span>"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+tztime local {
+        format = "<span color='#1a8cff'> %a %d %b %l:%M%p </span>"
+
+}
+
+ethernet enp10s0 {
+  # if you use %speed, i3status requires root privileges
+  format_up =" <span color='#33bdf5'>  enp10s0: %ip</span>"
+  format_down = ""
+}
+
+memory {
+        format = " <span color='#ffa64d'>   RAM: %used/%total</span>"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+load {
+        format = " <span color='#aaff80'>  CPU: %5min</span>"
+}
+
+disk "/" {
+    format = " <span color='#79adf5'> NVME: %free</span>"
+   # align = "left"
+    min_width = 100
+    separator = true
+    separator_block_width = 1
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
